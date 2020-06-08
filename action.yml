@@ -1,13 +1,28 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: 'ToggleBranchProtection'
+description: 'Toggle protection for a branch on or off'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  owner:
+    description: 'GitHub user or org'
     required: true
-    default: '1000'
+  repo:
+    description: 'GitHub repository'
+    required: true
+  branch:
+    description: 'branch for toggling protection, defaults to master'
+    required: false
+    default: 'master'
+  GITHUB_TOKEN:
+    description: 'GitHub token with sufficient rights, for toggling protection'
+    required: true
+  on:
+    description: 'Enable branch protection with passed JSON of protection rules'
+    required: false
+  off:
+    description: 'Disable branch protection'
+    required: false
 outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+  on: # output will be available to future steps
+    description: 'The stringified protection rules for re-enabling'
 runs:
   using: 'node12'
   main: 'dist/index.js'
